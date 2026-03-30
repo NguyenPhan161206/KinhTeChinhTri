@@ -1,0 +1,11 @@
+# Excel temporary files
+~$*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS
+Thumbs.db
+desktop.ini
