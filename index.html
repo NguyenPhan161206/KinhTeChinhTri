@@ -3,66 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Flow Corp - Chiến Lược Kinh Tế Chính Trị Chuyên Sâu</title>
+    <title>AI Flow Corp - Clean Glass Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
-        .chart-container { position: relative; width: 100%; height: 300px; margin: auto; }
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #4f46e5; cursor: pointer; margin-top: -7px; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px; }
-        .kpi-tag { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; background: #eef2ff; color: #4338ca; font-weight: 600; }
-        .toggle-active { background-color: #4f46e5; color: white; }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="text-slate-900">
 
-    <div class="flex flex-col md:flex-row min-h-screen">
+    <!-- Static Background Elements -->
+    <div class="static-bg">
+        <div class="bg-accent accent-1"></div>
+        <div class="bg-accent accent-2"></div>
+    </div>
+
+    <div class="flex flex-col md:flex-row min-h-screen relative z-10">
         
         <!-- Sidebar Navigation -->
-        <aside class="w-full md:w-72 bg-slate-900 text-white p-6 flex flex-col shadow-2xl z-20">
+        <aside class="w-full md:w-72 sidebar-glass text-white p-6 flex flex-col shadow-2xl">
             <div class="flex items-center gap-3 mb-10">
-                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-2xl">AI</div>
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-indigo-500/20">AI</div>
                 <div>
-                    <h1 class="text-lg font-bold leading-tight">AI Flow Corp</h1>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-tighter">Báo cáo Chiến lược 12 Tháng</p>
+                    <h1 class="text-lg font-bold leading-tight tracking-tight">AI Flow Corp</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Báo cáo Chiến lược</p>
                 </div>
             </div>
             
             <nav class="flex-1 space-y-2">
-                <button onclick="changeView('intro')" id="nav-intro" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-indigo-600 text-white shadow-lg">
-                    <span>&#128187;</span> <span class="text-sm font-medium">Mô Hình & Lý Luận</span>
+                <button onclick="changeView('about')" id="nav-about" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-indigo-600 text-white shadow-lg">
+                    <span>🏰</span> <span class="text-sm font-semibold">Giới thiệu doanh nghiệp</span>
                 </button>
-                <button onclick="changeView('plan')" id="nav-plan" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800">
-                    <span>&#128197;</span> <span class="text-sm font-medium">Kế Hoạch Tương Tác</span>
+                <button onclick="changeView('plan')" id="nav-plan" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400">
+                    <span>📅</span> <span class="text-sm font-semibold">Kế Hoạch Tương Tác</span>
                 </button>
-                <button onclick="changeView('analysis')" id="nav-analysis" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800">
-                    <span>&#128202;</span> <span class="text-sm font-medium">Cấu Tạo Vốn (c/v)</span>
+                <button onclick="changeView('kpi')" id="nav-kpi" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400">
+                    <span>🎯</span> <span class="text-sm font-semibold">Hệ thống KPI</span>
                 </button>
-                <button onclick="changeView('finance')" id="nav-finance" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800">
-                    <span>&#128176;</span> <span class="text-sm font-medium">Quản Trị Tài Chính</span>
+                <button onclick="changeView('daily')" id="nav-daily" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400">
+                    <span>💼</span> <span class="text-sm font-semibold">Mô tả công việc</span>
                 </button>
-                <button onclick="changeView('social')" id="nav-social" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800">
-                    <span>&#127807;</span> <span class="text-sm font-medium">Định Hướng XHCN</span>
-                </button>
-                <button onclick="changeView('kpi')" id="nav-kpi" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800">
-                    <span>&#127919;</span> <span class="text-sm font-medium">KPI</span>
-                </button>
-                <button onclick="changeView('daily')" id="nav-daily" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800">
-                    <span>&#128188;</span> <span class="text-sm font-medium">Mô tả công việc 1 ngày</span>
-                </button>
-                <a href="financial_model_Final.xlsx" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:bg-slate-800 hover:text-white">
-                    <span>&#128196;</span> <span class="text-sm font-medium">File Financial Model</span>
+                <a href="financial_model_Final.xlsx" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-400 hover:text-emerald-400">
+                    <span>📂</span> <span class="text-sm font-semibold">File Financial Model</span>
                 </a>
             </nav>
 
-            <div class="mt-auto pt-6 border-t border-slate-800">
-                <div class="bg-slate-800/50 p-4 rounded-2xl">
-                    <p class="text-[10px] text-slate-500 uppercase font-bold mb-2">Vốn ứng trước</p>
-                    <div class="text-xl font-bold text-indigo-400">2.000.000.000 <span class="text-xs font-normal text-slate-400">VNĐ</span></div>
+            <div class="mt-auto pt-6 border-t border-white/10">
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <p class="text-[10px] text-slate-500 uppercase font-bold mb-1 tracking-wider">Vốn ứng trước</p>
+                    <div class="text-xl font-extrabold text-indigo-400">2.000.000.000 <span class="text-xs font-normal text-slate-500">VNĐ</span></div>
                 </div>
             </div>
         </aside>
@@ -70,728 +57,144 @@
         <!-- Main Content -->
         <main class="flex-1 h-screen overflow-y-auto p-4 md:p-10 lg:p-14">
             
-            <!-- VIEW: INTRO -->
-            <section id="view-intro" class="space-y-10">
+            <!-- VIEW: ABOUT -->
+            <section id="view-about" class="space-y-12">
                 <div class="max-w-4xl">
-                    <h2 class="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Cấu Trúc Mô Hình & Lăng Kính Lý Luận</h2>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-8">Doanh nghiệp AI Automation đại diện cho sự phát triển của <strong>lực lượng sản xuất hiện đại</strong>, nơi tri thức biến đổi phương thức tạo ra giá trị thặng dư.</p>
+                    <div class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-indigo-600 uppercase bg-indigo-50 border border-indigo-100 rounded-full">Về AI Flow Corp</div>
+                    <h2 class="text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Kiến tạo tương lai bằng <span class="text-indigo-600">Trí tuệ nhân tạo</span></h2>
+                    <p class="text-xl text-slate-600 leading-relaxed mb-10 max-w-2xl font-medium">Chúng tôi cung cấp các giải pháp tự động hóa quy trình dựa trên nền tảng AI, giúp doanh nghiệp tối ưu hóa nguồn lực và bứt phá doanh thu.</p>
                     
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="glass-card p-8 rounded-3xl shadow-sm border-l-8 border-indigo-600">
-                            <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">Siêu lợi nhuận (Excess Surplus Value)</h3>
-                            <p class="text-sm text-slate-600 leading-relaxed">Khi AI Flow Corp áp dụng thuật toán độc quyền, <strong>giá trị cá biệt</strong> của sản phẩm thấp hơn <strong>giá trị xã hội</strong>. Chênh lệch này chính là siêu lợi nhuận, động lực cốt lõi của đổi mới công nghệ.</p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="glass-card p-8">
+                            <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-2xl mb-6">🎯</div>
+                            <h3 class="font-bold text-slate-900 text-lg mb-2">Sứ mệnh</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed font-medium">Phổ cập công nghệ AI đến mọi doanh nghiệp Việt Nam, biến sự phức tạp thành sự đơn giản.</p>
                         </div>
-                        <div class="bg-slate-900 p-8 rounded-3xl shadow-xl text-white">
-                            <h3 class="font-bold text-indigo-400 mb-4 flex items-center gap-2">Tư bản bất biến (c) vs Khả biến (v)</h3>
-                            <div class="space-y-4 text-xs">
-                                <div class="p-3 bg-slate-800 rounded-xl border-l-4 border-indigo-500">
-                                    <p class="font-bold text-indigo-300">Tư bản bất biến (c): 1.4 tỷ</p>
-                                    <p class="opacity-70">Máy chủ Cloud, GPU, Bản quyền phần mềm.</p>
-                                </div>
-                                <div class="p-3 bg-slate-800 rounded-xl border-l-4 border-emerald-500">
-                                    <p class="font-bold text-emerald-300">Tư bản khả biến (v): 0.6 tỷ</p>
-                                    <p class="opacity-70">Tiền lương cho đội ngũ chuyên gia AI.</p>
-                                </div>
-                            </div>
+                        <div class="glass-card p-8">
+                            <div class="w-12 h-12 bg-cyan-50 rounded-xl flex items-center justify-center text-2xl mb-6">🚀</div>
+                            <h3 class="font-bold text-slate-900 text-lg mb-2">Tầm nhìn</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed font-medium">Trở thành hệ sinh thái AI Automation hàng đầu khu vực ASEAN vào năm 2030.</p>
+                        </div>
+                        <div class="glass-card p-8">
+                            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-2xl mb-6">💎</div>
+                            <h3 class="font-bold text-slate-900 text-lg mb-2">Giá trị cốt lõi</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed font-medium">Sáng tạo không ngừng - Khách hàng là trọng tâm - Minh bạch.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- VIEW: PLAN SIMULATOR -->
+            <!-- VIEW: PLAN -->
             <section id="view-plan" class="hidden space-y-8">
                 <header class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div>
-                        <h2 class="text-3xl font-bold text-slate-900">Kế Hoạch Tăng Trưởng 12 Tháng</h2>
-                        <p class="text-slate-500">Mô phỏng sự biến động của m (giá trị thặng dư) và v (nhân sự).</p>
+                        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Kế Hoạch Tăng Trưởng</h2>
+                        <p class="text-slate-500 font-medium">Mô phỏng sự biến động của m (giá trị thặng dư) và v (nhân sự).</p>
                     </div>
-                    <div class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-slate-200 text-center">
+                    <div class="glass-card px-6 py-3 text-center">
                         <span class="text-[10px] text-slate-400 uppercase font-bold block">Tháng</span>
-                        <div id="month-display" class="text-3xl font-black text-indigo-700">01</div>
+                        <div id="month-display" class="text-3xl font-black text-indigo-600">01</div>
                     </div>
                 </header>
 
-                <div class="glass-card p-6 rounded-3xl shadow-sm">
+                <div class="glass-card p-6">
                     <div class="chart-container">
                         <canvas id="growthChart"></canvas>
                     </div>
                 </div>
 
                 <div class="grid lg:grid-cols-12 gap-8">
-                    <div class="lg:col-span-4 bg-slate-900 rounded-3xl p-8 text-white">
-                        <h3 class="font-bold mb-6 text-indigo-400">Điều khiển Timeline</h3>
+                    <div class="lg:col-span-4 glass-card bg-slate-900 rounded-[24px] p-8 text-white">
+                        <h3 class="font-bold mb-8 text-indigo-400">Điều khiển Timeline</h3>
                         <input type="range" id="month-slider" min="1" max="12" value="1" class="mb-8">
                         <div class="space-y-4">
-                            <div class="flex justify-between border-b border-slate-800 pb-2">
-                                <span class="text-xs text-slate-500">Nhân sự (v)</span>
-                                <span id="stat-staff" class="font-bold">31</span>
+                            <div class="flex justify-between border-b border-white/10 pb-2">
+                                <span class="text-xs text-slate-400">Nhân sự (v)</span>
+                                <span id="stat-staff" class="font-bold text-lg">31</span>
                             </div>
-                            <div class="flex justify-between border-b border-slate-800 pb-2">
-                                <span class="text-xs text-slate-500">Giá trị m</span>
-                                <span id="stat-m" class="font-bold text-emerald-400">1.860 Tr</span>
+                            <div class="flex justify-between border-b border-white/10 pb-2">
+                                <span class="text-xs text-slate-400">Giá trị m</span>
+                                <span id="stat-m" class="font-bold text-lg text-emerald-400">1.860 Tr</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-xs text-slate-500">Tỷ suất p'</span>
-                                <span id="stat-profit" class="font-bold text-indigo-400">5.1%</span>
+                                <span class="text-xs text-slate-400">Tỷ suất p'</span>
+                                <span id="stat-profit" class="font-bold text-lg text-indigo-400">5.1%</span>
                             </div>
                         </div>
                     </div>
                     <div class="lg:col-span-8">
-                        <div id="month-content-card" class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm min-h-[300px]"></div>
+                        <div id="month-content-card" class="glass-card p-8 min-h-[300px]"></div>
+                    </div>
+                </div>
+
+                <!-- Bảng Lương Theo Ban -->
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span>💰</span> Bảng Lương Theo Ban
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-[10px] text-slate-400 uppercase tracking-widest border-b border-slate-100">
+                                    <th class="py-4 font-bold">Bộ phận</th>
+                                    <th class="py-4 font-bold">Vị trí</th>
+                                    <th class="py-4 font-bold text-center">Số lượng</th>
+                                    <th class="py-4 font-bold text-right">Lương cơ bản</th>
+                                    <th class="py-4 font-bold text-right">Thưởng KPI</th>
+                                    <th class="py-4 font-bold text-right">Tổng lương</th>
+                                </tr>
+                            </thead>
+                            <tbody id="salary-table-body" class="text-sm font-medium">
+                                <!-- Dữ liệu sẽ được chèn bằng JS -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
 
-            <!-- VIEW: ANALYSIS (c/v) -->
-            <section id="view-analysis" class="hidden space-y-10">
-                <div class="max-w-5xl">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Cấu Tạo Hữu Cơ Của Tư Bản (c/v)</h2>
-                    <p class="text-slate-600 mb-8">Sự thay đổi tỷ trọng giữa Máy móc ($c$) và Con người ($v$) theo thời gian tích lũy.</p>
-                    
-                    <div class="grid md:grid-cols-2 gap-10 items-center">
-                        <div class="glass-card p-8 rounded-full aspect-square flex items-center justify-center relative">
-                            <canvas id="cvPieChart"></canvas>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm">
-                                <h4 class="font-bold text-slate-800 mb-2">Tích lũy & Hiện đại hóa</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">Lợi nhuận được tái đầu tư mạnh vào Server ($c$) khiến cấu tạo hữu cơ tăng dần. Điều này phản ánh xu thế tất yếu của nền kinh tế tri thức: <strong>Trí tuệ nhân tạo dần thay thế các thao tác lặp lại.</strong></p>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-slate-900 text-white p-4 rounded-2xl text-center">
-                                    <p class="text-[10px] opacity-50 uppercase">Tỷ lệ c/v ban đầu</p>
-                                    <p class="text-2xl font-bold">70/30</p>
-                                </div>
-                                <div class="bg-indigo-600 text-white p-4 rounded-2xl text-center">
-                                    <p class="text-[10px] opacity-50 uppercase">Tỷ lệ c/v Tháng 12</p>
-                                    <p class="text-2xl font-bold">82/18</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- VIEW: FINANCE & MACRO -->
-            <section id="view-finance" class="hidden space-y-10">
-                <div class="max-w-5xl">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-8">Ma Trận Tác Động Vĩ Mô & Tài Chính</h2>
-                    
-                    <!-- Macro Toggles -->
-                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm mb-10">
-                        <h3 class="font-bold text-slate-800 mb-6">Thử nghiệm Kịch bản Vĩ mô (Việt Nam)</h3>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="flex-1 min-w-[200px] p-4 bg-slate-50 rounded-2xl">
-                                <p class="text-xs font-bold text-slate-500 mb-3 uppercase">Lạm phát (Ảnh hưởng v)</p>
-                                <div class="flex gap-2">
-                                    <button onclick="setMacro('inflation', 0)" id="inf-0" class="flex-1 py-2 text-xs rounded-lg border border-slate-200 toggle-active">Thấp (2%)</button>
-                                    <button onclick="setMacro('inflation', 1)" id="inf-1" class="flex-1 py-2 text-xs rounded-lg border border-slate-200 bg-white">Cao (6%)</button>
-                                </div>
-                            </div>
-                            <div class="flex-1 min-w-[200px] p-4 bg-slate-50 rounded-2xl">
-                                <p class="text-xs font-bold text-slate-500 mb-3 uppercase">Lãi suất (Ảnh hưởng z)</p>
-                                <div class="flex gap-2">
-                                    <button onclick="setMacro('interest', 0)" id="int-0" class="flex-1 py-2 text-xs rounded-lg border border-slate-200 toggle-active">Thấp (7%)</button>
-                                    <button onclick="setMacro('interest', 1)" id="int-1" class="flex-1 py-2 text-xs rounded-lg border border-slate-200 bg-white">Cao (12%)</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="macro-impact-desc" class="mt-6 p-4 bg-indigo-50 rounded-2xl text-xs text-indigo-700 italic leading-relaxed">
-                            Kịch bản hiện tại: Lạm phát thấp giúp ổn định giá trị sức lao động (v). Lãi suất thấp giúp DN giữ lại nhiều thặng dư (m) hơn sau khi trả lợi tức (z).
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="bg-indigo-700 p-8 rounded-3xl text-white">
-                            <h3 class="font-bold mb-4">Chu kỳ Tái sản xuất Mở rộng</h3>
-                            <p class="text-sm opacity-80 leading-relaxed">Sau 12 tháng, với tỷ suất lợi nhuận trung bình 5%, tổng vốn tích lũy đạt ~3.3 tỷ VNĐ. Đây là tiền đề để mở rộng quy mô sang thị trường khu vực (ASEAN).</p>
-                        </div>
-                        <div class="bg-slate-900 p-8 rounded-3xl text-white">
-                            <h3 class="font-bold mb-4 text-indigo-400">Chia sẻ Lợi tức (z)</h3>
-                            <p class="text-sm opacity-80 leading-relaxed">Khi vay 1 tỷ, DN thực chất đang nhường một phần <strong>m</strong> cho Tư bản cho vay. Tính sắc sảo nằm ở việc tận dụng vốn vay để đẩy nhanh tốc độ tích lũy tư bản.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- VIEW: SOCIALIST -->
-            <section id="view-social" class="hidden space-y-10 text-center">
-                <div class="max-w-3xl mx-auto space-y-8">
-                    <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center text-5xl mx-auto border-4 border-white shadow-xl shadow-emerald-100">🇻🇳</div>
-                    <h2 class="text-4xl font-black text-slate-900 tracking-tight">Kinh tế Thị trường Định hướng XHCN</h2>
-                    <p class="text-lg text-slate-600">AI Flow Corp cam kết hài hòa giữa lợi nhuận (Tư bản) và hạnh phúc (Con người), góp phần vào công cuộc chuyển đổi số quốc gia.</p>
-                    <div class="grid md:grid-cols-3 gap-6 text-left">
-                        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                            <h4 class="font-bold text-indigo-700 mb-2">Trách nhiệm (v)</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">Đảm bảo BHXH, hỗ trợ thai sản nhân văn (như tháng 3), không sa thải hàng loạt khi thị trường biến động.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                            <h4 class="font-bold text-emerald-700 mb-2">Đào tạo (m)</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">Trích một phần thặng dư để tái đào tạo kỹ năng AI cho nhân sự, nâng cao chất lượng nguồn nhân lực.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                            <h4 class="font-bold text-amber-700 mb-2">Cộng đồng</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">Cung cấp giải pháp AI giá rẻ cho SMEs Việt Nam, thúc đẩy năng suất lao động xã hội.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- VIEW: KPI -->
             <section id="view-kpi" class="hidden space-y-8">
                 <header class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <h2 class="text-3xl font-bold text-slate-900">KPI</h2>
-                        <p class="text-slate-500">Chi tiết KPI từng bộ phận theo lộ trình 12 tháng.</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <a href="https://docs.google.com/spreadsheets/d/1mNTe4Yck2MNx8gt08wwJ2H8H9vneEWxsl8PYFpq5ryU/edit?gid=1671587964#gid=1671587964" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 shadow-lg shadow-emerald-100">
-                            <span>📊</span> Xem chi tiết Spreadsheet
-                        </a>
-                        <div class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-slate-200 text-center">
-                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Tháng</span>
-                            <div id="kpi-month-display" class="text-3xl font-black text-indigo-700">01</div>
-                        </div>
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Hệ thống KPI</h2>
+                    <div class="glass-card px-6 py-3 text-center">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold block">Tháng</span>
+                        <div id="kpi-month-display" class="text-3xl font-black text-indigo-600">01</div>
                     </div>
                 </header>
-
-                <div class="bg-slate-900 rounded-3xl p-6 text-white">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div class="flex-1">
-                            <h3 class="font-bold mb-4 text-indigo-400 flex items-center gap-2">
-                                <span>📅</span> Lộ trình KPI 12 Tháng
-                            </h3>
-                            <input type="range" id="kpi-month-slider" min="1" max="12" value="1" class="w-full">
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <button onclick="setKPIDept('Marketing')" id="dept-Marketing" class="dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all toggle-active">Marketing</button>
-                            <button onclick="setKPIDept('Sales')" id="dept-Sales" class="dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-white">Sales</button>
-                            <button onclick="setKPIDept('Tech')" id="dept-Tech" class="dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-white">Tech</button>
-                            <button onclick="setKPIDept('Ops')" id="dept-Ops" class="dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-white">Ops</button>
-                        </div>
+                <div class="glass-card p-8">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="setKPIDept('Marketing')" id="dept-Marketing" class="dept-btn px-6 py-2 rounded-xl text-xs font-bold toggle-active">Marketing</button>
+                        <button onclick="setKPIDept('Sales')" id="dept-Sales" class="dept-btn px-6 py-2 rounded-xl text-xs font-bold bg-white/20 text-slate-500">Sales</button>
+                        <button onclick="setKPIDept('Tech')" id="dept-Tech" class="dept-btn px-6 py-2 rounded-xl text-xs font-bold bg-white/20 text-slate-500">Tech</button>
+                        <button onclick="setKPIDept('Ops')" id="dept-Ops" class="dept-btn px-6 py-2 rounded-xl text-xs font-bold bg-white/20 text-slate-500">Ops</button>
                     </div>
+                    <input type="range" id="kpi-month-slider" min="1" max="12" value="1" class="w-full mt-8">
                 </div>
-
-                <div id="kpi-content-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- KPI Cards will be injected here -->
-                </div>
+                <div id="kpi-content-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </section>
 
-            <!-- VIEW: DAILY JOB -->
-            <section id="view-daily" class="hidden space-y-8">
-                <header class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <h2 class="text-3xl font-bold text-slate-900">Mô tả công việc 1 ngày</h2>
-                        <p class="text-slate-500">Chi tiết công việc hàng ngày của từng vị trí trong doanh nghiệp.</p>
-                    </div>
-                </header>
-
-                <div class="bg-slate-900 rounded-3xl p-6 text-white">
+            <section id="view-daily" class="hidden space-y-10">
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Mô tả công việc 8 Tiếng 1 ngày</h2>
+                <div class="glass-card p-8">
                     <div class="flex flex-wrap gap-2">
-                        <button onclick="setDailyDept('Marketing')" id="daily-dept-Marketing" class="daily-dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all toggle-active">Marketing</button>
-                        <button onclick="setDailyDept('Sales')" id="daily-dept-Sales" class="daily-dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-white">Sales</button>
-                        <button onclick="setDailyDept('Tech')" id="daily-dept-Tech" class="daily-dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-white">Tech</button>
-                        <button onclick="setDailyDept('Ops')" id="daily-dept-Ops" class="daily-dept-btn px-6 py-2 rounded-xl text-sm font-bold transition-all bg-slate-800 text-slate-400 hover:text-white">Ops</button>
+                        <button onclick="setDailyDept('Marketing')" id="daily-dept-Marketing" class="daily-dept-btn px-6 py-2 rounded-xl text-xs font-bold toggle-active">Marketing</button>
+                        <button onclick="setDailyDept('Sales')" id="daily-dept-Sales" class="daily-dept-btn px-6 py-2 rounded-xl text-xs font-bold bg-white/20 text-slate-500">Sales</button>
+                        <button onclick="setDailyDept('Tech')" id="daily-dept-Tech" class="daily-dept-btn px-6 py-2 rounded-xl text-xs font-bold bg-white/20 text-slate-500">Tech</button>
+                        <button onclick="setDailyDept('Ops')" id="daily-dept-Ops" class="daily-dept-btn px-6 py-2 rounded-xl text-xs font-bold bg-white/20 text-slate-500">Ops</button>
                     </div>
                 </div>
-
-                <div id="daily-content-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Daily Job Cards will be injected here -->
-                </div>
+                <div id="daily-content-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </section>
 
         </main>
     </div>
 
-    <script>
-        const kpiData = {
-          "1": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 400 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "130 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "30 content/người/tháng\n≥ 3 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "50 sản phẩm/tháng\n≥ 5 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 20 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 300 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 3 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "4 khách/người\nDoanh thu ≥ 60 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "2 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "2–4 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "2": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 420 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "135 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "32 content/người/tháng\n≥ 3 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "52 sản phẩm/tháng\n≥ 5 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 21 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 315 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 4 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "4 khách/người\nDoanh thu ≥ 65 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "2 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "3-4 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "3": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 440 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "140 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "34 content/người/tháng\n≥ 4 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "55 sản phẩm/tháng\n≥ 5 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 22 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 330 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 5 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "5 khách/người\nDoanh thu ≥ 70 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "2 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "3-5 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "4": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 460 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "150 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "36 content/người/tháng\n≥ 4 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "58 sản phẩm/tháng\n≥ 6 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 23 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 345 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 5 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "5 khách/người\nDoanh thu ≥ 75 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "2 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "4-5 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "5": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 480 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "155 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "38 content/người/tháng\n≥ 4 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "63 sản phẩm/tháng\n≥ 7 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 24 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 360 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 6 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "5 khách/người\nDoanh thu ≥ 80 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "3 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "4-6 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "6": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 500 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "165 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "40 content/người/tháng\n≥ 5 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "63 sản phẩm/tháng\n≥ 7 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 25 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 375 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 6 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "6 khách/người\nDoanh thu ≥ 85 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "3 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "5-6 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.5%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "7": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 525 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "170 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "42 content/người/tháng\n≥ 5 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "66 sản phẩm/tháng\n≥ 7 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 26 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 390 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 7 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "6 khách/người\nDoanh thu ≥ 90 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "3 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "5-7 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.5%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "8": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 550 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "180 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "45 content/người/tháng\n≥ 5 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "70 sản phẩm/tháng\n≥ 7 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 27 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 405 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 7 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "6 khách/người\nDoanh thu ≥ 95 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "4 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "6-7 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.5%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "9": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 580 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "190 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "48 content/người/tháng\n≥ 6 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "75 sản phẩm/tháng\n≥ 8 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 28 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 420 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 8 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "7 khách/người\nDoanh thu ≥ 100 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "4 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "6-8 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.5%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "10": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 610 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "200 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "50 content/người/tháng\n≥ 6 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "80 sản phẩm/tháng\n≥ 8 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 30 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 450 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 9 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "7 khách/người\nDoanh thu ≥ 110 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "4 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "7-8 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.5%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "11": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 640 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "210 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "52 content/người/tháng\n≥ 6 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "85 sản phẩm/tháng\n≥ 9 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 32 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 480 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 10 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "8 khách/người\nDoanh thu ≥ 120 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "5 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "7-9 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.5%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          },
-          "12": {
-            "Marketing": [
-              { "position": "Manager", "kpi": "≥ 670 lead/tháng\nChi phí bỏ ra để thu hút khách hàng giảm <10%\nLead chất lượng hơn 70%" },
-              { "position": "Performance", "kpi": "220 lead/người/tháng\nCPL ≤ mục tiêu\nÍt nhất 2 campaign hiệu quả" },
-              { "position": "Content", "kpi": "55 content/người/tháng\n≥ 7 content tạo ra lead\nNội dung hỗ trợ tăng tỷ lệ chuyển đổi" },
-              { "position": "Creative", "kpi": "90 sản phẩm/tháng\n≥ 10 creative chạy ads hiệu quả" }
-            ],
-            "Sales": [
-              { "position": "Team lead", "kpi": "Team đạt ≥ 34 khách\nTỷ lệ chốt ≥ 10%\nDoanh thu ≥ 510 triệu" },
-              { "position": "Defendence", "kpi": "Chuyển đổi thêm ≥ 12 khách từ lead cũ\nTỷ lệ phản hồi khách ≥ 90%\nGiảm tỷ lệ mất lead" },
-              { "position": "Sales member", "kpi": "9 khách/người\nDoanh thu ≥ 135 triệu/người" }
-            ],
-            "Tech": [
-              { "position": "Automation", "kpi": "5 automation/người\nGiảm workload team ≥ 20%\nTool hoạt động ổn định" },
-              { "position": "Fullstack", "kpi": "8-10 feature/người\nKhông bug nghiêm trọng\nHệ thống đáp ứng được khách" },
-              { "position": "Devops", "kpi": "Uptime ≥ 99.9%\nKhông lỗi deploy nghiêm trọng\nKhông mất dữ liệu" }
-            ],
-            "Ops": [
-              { "position": "Ops manager", "kpi": "100% triển khai đúng hạn\nCSAT ≥ 90%" }
-            ]
-          }
-        };
-
-        const staffData = {
-            1: { sales: 5, mkt: 10, tech: 10, ops: 4, acc: 2, event: "Chuẩn hóa hệ thống AI ban đầu.", risk: "Bình thường" },
-            2: { sales: 6, mkt: 10, tech: 10, ops: 4, acc: 2, event: "Mở rộng Sales: Đẩy mạnh SaaS.", risk: "Bình thường" },
-            3: { sales: 6, mkt: 10, tech: 10, ops: 5, acc: 2, event: "RỦI RO: Nhân sự Tech nghỉ thai sản.", risk: "Thai sản", desc: "Ảnh hưởng 20% team Tech. Xử lý: Chi lương hỗ trợ + AI choàng việc." },
-            4: { sales: 7, mkt: 10, tech: 10, ops: 5, acc: 2, event: "Ổn định sau biến động nhân sự.", risk: "Bình thường" },
-            5: { sales: 7, mkt: 11, tech: 10, ops: 5, acc: 2, event: "Tăng cường Marketing đón sóng hè.", risk: "Bình thường" },
-            6: { sales: 7, mkt: 11, tech: 11, ops: 5, acc: 2, event: "Vay thêm vốn NH 1 tỷ mở rộng Cloud.", risk: "Tài chính" },
-            7: { sales: 8, mkt: 11, tech: 11, ops: 5, acc: 2, event: "RỦI RO: Mất đơn hàng SaaS lớn.", risk: "Thị trường", desc: "Doanh thu giảm 15%. Xử lý: Chuyển thưởng KPI linh hoạt để bảo vệ dòng tiền." },
-            8: { sales: 8, mkt: 12, tech: 11, ops: 5, acc: 2, event: "Phục hồi doanh thu qua tệp SMEs mới.", risk: "Bình thường" },
-            9: { sales: 8, mkt: 12, tech: 12, ops: 5, acc: 2, event: "Tối ưu hóa thuật toán AI Core.", risk: "Bình thường" },
-            10: { sales: 9, mkt: 12, tech: 12, ops: 5, acc: 2, event: "RỦI RO: Đối thủ săn Senior Dev.", risk: "Cạnh tranh", desc: "Xử lý: Tăng phụ cấp thâm niên và quyền lợi cổ phiếu ESOP." },
-            11: { sales: 9, mkt: 13, tech: 12, ops: 5, acc: 2, event: "Bùng nổ doanh số cuối năm.", risk: "Bình thường" },
-            12: { sales: 10, mkt: 13, tech: 12, ops: 5, acc: 2, event: "Trích quỹ thưởng Tết & Phúc lợi.", risk: "Bình thường" }
-        };
-
-        const dailyJobData = {
-            "Marketing": [
-                { "position": "Manager", "tasks": "Duyệt chiến dịch chạy Ads\nHọp chiến lược Content quý\nPhân tích báo cáo ROI hàng ngày" },
-                { "position": "Performance", "tasks": "Thiết lập camp FB/Google mới\nTối ưu giá thầu\nTest A/B mẫu quảng cáo" },
-                { "position": "Content", "tasks": "Sáng tạo nội dung cho fanpage\nViết blog chuẩn SEO\nChuẩn bị kịch bản cho video TikTok" },
-                { "position": "Creative", "tasks": "Thiết kế banner quảng cáo\nDựng clip giới thiệu tính năng AI mới\nChụp ảnh team sự kiện" }
-            ],
-            "Sales": [
-                { "position": "Team lead", "tasks": "Quản lý pipeline khách hàng\nHỗ trợ member chốt deal khó\nĐào tạo kỹ năng telesale" },
-                { "position": "Defendence", "tasks": "Gọi điện chăm sóc định kỳ\nXử lý khiếu nại khách hàng\nĐề xuất chương trình giữ chân khách" },
-                { "position": "Sales member", "tasks": "Tiếp cận lead từ Marketing\nGọi điện tư vấn giải pháp AI\nLàm báo giá và chốt hợp đồng" }
-            ],
-            "Tech": [
-                { "position": "Automation", "tasks": "Lập trình bot tự động hóa\nKết nối API giữa các hệ thống\nTối ưu quy trình xử lý dữ liệu" },
-                { "position": "Fullstack", "tasks": "Nâng cấp giao diện người dùng\nXây dựng API Backend\nTối ưu Database" },
-                { "position": "Devops", "tasks": "Giám sát sức khỏe server\nTriển khai CI/CD\nSao lưu dữ liệu định kỳ" }
-            ],
-            "Ops": [
-                { "position": "Ops manager", "tasks": "Quản lý dòng tiền\nĐiều phối nhân sự giữa các ban\nXây dựng văn hóa doanh nghiệp" }
-            ]
-        };
-
-        let growthChart, cvPieChart;
-        let macroState = { inflation: 0, interest: 0 };
-        let currentKPIDept = "Marketing";
-        let currentDailyDept = "Marketing";
-
-        function calculateFinancials(month) {
-            const d = staffData[month];
-            let totalValue = (d.sales * 60) + (d.mkt * 60) + (d.tech * 120) + (d.ops * 100);
-            let totalSalary = (d.sales * 8) + (d.mkt * 12) + (d.tech * 23) + (d.ops * 11) + (d.acc * 12);
-            
-            if(macroState.inflation === 1) totalSalary *= 1.15;
-            if (month === 3) totalValue *= 0.85;
-            if (month === 7) totalValue *= 0.85;
-            if (month === 10) totalSalary *= 1.1;
-
-            const mVal = totalValue - totalSalary;
-            const netM = macroState.interest === 1 ? mVal * 0.85 : mVal;
-            return { totalStaff: d.sales + d.mkt + d.tech + d.ops + d.acc, mVal: netM, totalSalary, cVal: 1400 + (month * 40) };
-        }
-
-        function initCharts() {
-            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
-            growthChart = new Chart(ctxGrowth, {
-                type: 'line',
-                data: {
-                    labels: Array.from({length: 12}, (_, i) => `Tháng ${i+1}`),
-                    datasets: [
-                        { label: 'Giá trị m (Triệu)', data: Array.from({length: 12}, (_, i) => calculateFinancials(i + 1).mVal), borderColor: '#4f46e5', backgroundColor: 'rgba(79, 70, 229, 0.1)', fill: true, tension: 0.4, yAxisID: 'y' },
-                        { label: 'Nhân sự v', data: Array.from({length: 12}, (_, i) => calculateFinancials(i + 1).totalStaff), type: 'bar', backgroundColor: '#e2e8f0', borderRadius: 6, yAxisID: 'y1' }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { position: 'left', grid: { display: false } }, y1: { position: 'right', grid: { display: false }, min: 25, max: 45 } } }
-            });
-
-            const ctxPie = document.getElementById('cvPieChart').getContext('2d');
-            cvPieChart = new Chart(ctxPie, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Tư bản bất biến (c)', 'Tư bản khả biến (v)'],
-                    datasets: [{
-                        data: [1400, 600],
-                        backgroundColor: ['#1e293b', '#4f46e5'],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: { 
-                    cutout: '70%',
-                    plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } }
-                }
-            });
-        }
-
-        function updateUI(month) {
-            const data = staffData[month];
-            const fin = calculateFinancials(month);
-            document.getElementById('month-display').textContent = month.toString().padStart(2, '0');
-            document.getElementById('stat-staff').textContent = fin.totalStaff;
-            document.getElementById('stat-m').textContent = Math.round(fin.mVal).toLocaleString() + " Tr";
-            document.getElementById('stat-profit').textContent = ((fin.mVal / 2000) * 100).toFixed(1) + "%";
-            
-            const card = document.getElementById('month-content-card');
-            let riskHTML = data.risk !== "Bình thường" ? `<div class="mt-4 p-4 rounded-xl bg-rose-50 border border-rose-100"><p class="text-rose-600 font-bold text-xs mb-1">⚠️ RỦI RO: ${data.risk.toUpperCase()}</p><p class="text-[10px] text-rose-800">${data.desc}</p></div>` : "";
-            
-            card.innerHTML = `
-                <div class="mb-4"><span class="text-[10px] font-bold text-slate-400 uppercase">Sự kiện</span><h4 class="text-xl font-bold text-slate-800">${data.event}</h4></div>
-                <div class="grid grid-cols-4 gap-2 mb-4 text-center">
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100"><p class="text-[8px] text-slate-400 font-bold">Sales</p><p class="text-sm font-bold">${data.sales}</p></div>
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100"><p class="text-[8px] text-slate-400 font-bold">Mkt</p><p class="text-sm font-bold">${data.mkt}</p></div>
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100"><p class="text-[8px] text-slate-400 font-bold">Tech</p><p class="text-sm font-bold">${data.tech}</p></div>
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100"><p class="text-[8px] text-slate-400 font-bold">Ops</p><p class="text-sm font-bold">${data.ops}</p></div>
-                </div>
-                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
-                    <h5 class="text-[10px] font-bold text-indigo-900 mb-1 uppercase tracking-widest">Góc nhìn Mác-xít</h5>
-                    <p class="text-[11px] text-indigo-700 italic">Tháng ${month}, DN đạt khối lượng thặng dư m = ${Math.round(fin.mVal)} Tr. Cơ chế <strong>giá trị thặng dư tương đối</strong> hoạt động hiệu quả nhờ AI Workflow.</p>
-                </div>
-                ${riskHTML}
-            `;
-
-            if (cvPieChart) {
-                cvPieChart.data.datasets[0].data = [fin.cVal, fin.totalSalary];
-                cvPieChart.update();
-            }
-        }
-
-        function setKPIDept(dept) {
-            currentKPIDept = dept;
-            document.querySelectorAll('.dept-btn').forEach(b => {
-                b.classList.remove('toggle-active');
-                b.classList.add('bg-slate-800', 'text-slate-400');
-            });
-            const btn = document.getElementById('dept-' + dept);
-            btn.classList.add('toggle-active');
-            btn.classList.remove('bg-slate-800', 'text-slate-400');
-            updateKPIUI(parseInt(document.getElementById('kpi-month-slider').value));
-        }
-
-        function updateKPIUI(month) {
-            document.getElementById('kpi-month-display').textContent = month.toString().padStart(2, '0');
-            const deptData = kpiData[month][currentKPIDept];
-            const grid = document.getElementById('kpi-content-grid');
-            
-            grid.innerHTML = deptData.map(item => `
-                <div class="glass-card p-6 rounded-3xl shadow-sm border-t-4 border-indigo-500 hover:shadow-md transition-all">
-                    <div class="flex justify-between items-start mb-4">
-                        <h4 class="font-bold text-slate-800 text-lg">${item.position}</h4>
-                        <span class="kpi-tag">KPI THÁNG ${month}</span>
-                    </div>
-                    <div class="space-y-3">
-                        ${item.kpi.split('\n').map(line => `
-                            <div class="flex gap-3 items-start">
-                                <span class="text-indigo-500 mt-1">✓</span>
-                                <p class="text-sm text-slate-600 leading-relaxed">${line}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function setDailyDept(dept) {
-            currentDailyDept = dept;
-            document.querySelectorAll('.daily-dept-btn').forEach(b => {
-                b.classList.remove('toggle-active');
-                b.classList.add('bg-slate-800', 'text-slate-400');
-            });
-            const btn = document.getElementById('daily-dept-' + dept);
-            btn.classList.add('toggle-active');
-            btn.classList.remove('bg-slate-800', 'text-slate-400');
-            updateDailyUI();
-        }
-
-        function updateDailyUI() {
-            const deptData = dailyJobData[currentDailyDept];
-            const grid = document.getElementById('daily-content-grid');
-            grid.innerHTML = deptData.map(item => `
-                <div class="glass-card p-6 rounded-3xl shadow-sm border-t-4 border-emerald-500 hover:shadow-md transition-all">
-                    <h4 class="font-bold text-slate-800 text-lg mb-4">${item.position}</h4>
-                    <div class="space-y-3">
-                        ${item.tasks.split('\n').map(task => `
-                            <div class="flex gap-3 items-start">
-                                <span class="text-emerald-500 mt-1">▹</span>
-                                <p class="text-sm text-slate-600 leading-relaxed">${task}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function setMacro(type, val) {
-            macroState[type] = val;
-            document.querySelectorAll(`button[id^="${type.substring(0,3)}"]`).forEach(b => b.classList.remove('toggle-active', 'bg-white'));
-            document.getElementById(`${type.substring(0,3)}-${val}`).classList.add('toggle-active');
-            
-            const desc = document.getElementById('macro-impact-desc');
-            if(macroState.inflation === 1 && macroState.interest === 1) desc.textContent = "Cảnh báo: Lạm phát cao kéo lương v tăng, cộng thêm lãi suất cao làm bào mòn lợi nhuận m.";
-            else if(macroState.inflation === 1) desc.textContent = "Lạm phát cao khiến chi phí tái sản xuất sức lao động (v) tăng 15%.";
-            else if(macroState.interest === 1) desc.textContent = "Lãi suất vay 12% khiến một phần lớn thặng dư m bị chuyển hóa thành lợi tức z cho ngân hàng.";
-            else desc.textContent = "Kịch bản ổn định: Lạm phát thấp và Lãi suất ưu đãi giúp tối ưu hóa tích lũy tư bản.";
-
-            if (growthChart) {
-                growthChart.data.datasets[0].data = Array.from({length: 12}, (_, i) => calculateFinancials(i + 1).mVal);
-                growthChart.update();
-            }
-            updateUI(parseInt(document.getElementById('month-slider').value));
-        }
-
-        function changeView(viewId) {
-            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('view-' + viewId).classList.remove('hidden');
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.remove('bg-indigo-600', 'text-white', 'shadow-lg');
-                b.classList.add('text-slate-400');
-            });
-            document.getElementById('nav-' + viewId).classList.add('bg-indigo-600', 'text-white', 'shadow-lg');
-            
-            if((viewId === 'plan' || viewId === 'analysis') && !growthChart) { 
-                setTimeout(() => {
-                    initCharts();
-                    updateUI(1);
-                }, 100); 
-            }
-            
-            if(viewId === 'kpi') {
-                updateKPIUI(parseInt(document.getElementById('kpi-month-slider').value));
-            }
-            if(viewId === 'daily') {
-                updateDailyUI();
-            }
-        }
-
-        document.getElementById('month-slider').addEventListener('input', e => updateUI(parseInt(e.target.value)));
-        document.getElementById('kpi-month-slider').addEventListener('input', e => updateKPIUI(parseInt(e.target.value)));
-        
-        window.onload = () => changeView('intro');
-    </script>
+    <!-- Data & Scripts -->
+    <script src="assets/js/data/kpiData.js"></script>
+    <script src="assets/js/data/staffData.js"></script>
+    <script src="assets/js/data/dailyJobData.js"></script>
+    <script src="assets/js/modules/ui.js"></script>
+    <script src="assets/js/modules/financials.js"></script>
+    <script src="assets/js/modules/charts.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
